@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+
+from lstm.lstm_functions import create_dataset, create_model, should_retrain
+
 from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
@@ -19,22 +22,13 @@ df = df[df.Date >= '2000-01-01']
 feature_columns = [col for col in df.columns if col not in ['volatility', 'Date']]
 target_column = 'volatility'
 
-# Convert to LSTM-friendly format
-def create_dataset(X, y, time_steps=1):
-    Xs, ys = [], []
-    for i in range(len(X) - time_steps):
-        v = X[i:(i + time_steps)]
-        Xs.append(v)
-        ys.append(y[i + time_steps])
-    return np.array(Xs), np.array(ys)
-
+# Prepare data
 time_steps = 22  # Sequence length
 X, y = create_dataset(df[feature_columns], df[target_column].values.reshape(-1, 1), time_steps) # [samples, time steps, features]
 input_shape = (time_steps, X.shape[2])
 
-index_15_years = 252*15
-
 # Hyperparameter tuning on the first 15 years of data
+index_15_years = 252*15
 tune_X, tune_y = X[:index_15_years], y[:index_15_years]
 
 # Modified create_model function to incorporate hyperparameters
