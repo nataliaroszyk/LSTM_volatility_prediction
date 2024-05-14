@@ -1,17 +1,13 @@
 import pandas as pd
-import numpy as np
-from sklearn.preprocessing import MinMaxScaler, RobustScaler
+
+from lstm.lstm_functions import create_dataset, should_retrain, create_model
 
 import os
-import tensorflow as tf
-
-from keras.models import Sequential
-from keras.layers import LSTM, Dense, Dropout
 from keras.callbacks import EarlyStopping
-from keras.optimizers import Adam
 from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.preprocessing import MinMaxScaler
 
-# Load your data
+# Load sp_lstm data
 df = pd.read_excel('data/sp500_lstm.xlsx')
 
 # Convert 'Date' to datetime
@@ -24,15 +20,6 @@ df = df[df.Date >= '2000-01-01']
 feature_columns = [col for col in df.columns if col not in ['volatility', 'Date']]
 target_column = 'volatility'
 
-# Convert to LSTM-friendly format
-def create_dataset(X, y, time_steps=1):
-    Xs, ys = [], []
-    for i in range(len(X) - time_steps):
-        v = X[i:(i + time_steps)]
-        Xs.append(v)
-        ys.append(y[i + time_steps])
-    return np.array(Xs), np.array(ys)
-
 time_steps = 22  # Sequence length
 X, y = create_dataset(df[feature_columns], df[target_column].values.reshape(-1, 1), time_steps) # [samples, time steps, features]
 
@@ -42,22 +29,7 @@ X, y = create_dataset(df[feature_columns], df[target_column].values.reshape(-1, 
 #np.random.seed(3)
 #tf.random.set_seed(3)
 
-# Function to create the LSTM model
-def create_model(input_shape):
-    model = Sequential()
-    model.add(LSTM(128, return_sequences=True, activation='tanh', input_shape=input_shape))
-    model.add(Dropout(0.1))
-    model.add(LSTM(128, return_sequences=False, activation='tanh'))
-    model.add(Dropout(0.1))
-    model.add(Dense(1, activation='relu'))
-    model.compile(optimizer=Adam(learning_rate=0.001), loss='mean_squared_error')
-    return model
-
-# Function to decide if retraining is needed
-def should_retrain(counter, interval=252):
-    return counter % interval == 0
-
-# Set up for predictions
+# Setup for predictions
 input_shape = (time_steps, X.shape[2])
 model_save_path = 'lstm.h5'
 
@@ -70,7 +42,6 @@ results = []
 counter = 0
 
 # Walk forward prediction with model refitting every 252 days
-
 for i in range(len(df) - initial_train_size - validation_size - 1):
     # Check if there is enough data for the test set to form a complete sequence
     if (i + initial_train_size + validation_size + time_steps > len(X)):
