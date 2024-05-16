@@ -18,11 +18,9 @@ def garch_data_prep(df):
 
     # Scale log returns for model input
     df['scaled_log_returns'] = df['log_returns'] * 100
-
-    # Remove any rows with NaN values which are the result of rolling calculations
+    
     df.dropna(inplace=True)
 
-    # Filter data to start from a specific date, assuming you want to start from 1985
     df = df[df.Date >= '1985-01-01']
 
     return df
