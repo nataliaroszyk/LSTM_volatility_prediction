@@ -40,7 +40,7 @@ First, clone the repository to your local machine using the following command:
 
 ### Step 2: Navigate to the Project Directory
 After cloning, change into the project directory:
-`cd LSTM_volatility_prediction`
+`cd volatility_prediction`
 
 ### Step 3: Install Dependencies
 Ensure that you have Python 3.8 or higher installed, then install the required Python packages:
