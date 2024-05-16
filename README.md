@@ -1,4 +1,4 @@
-# LSTM volatility prediction
+# The Hybrid Forecast of S&P 500 Volatility Ensembled from VIX, GARCH, and LSTM Models
 
 ## Overview
 This repository is part of a master thesis titled "The Hybrid Forecast of S&P 500 Volatility Ensembled from VIX, GARCH, and LSTM Models." It features a collection of models designed to predict stock market volatility using advanced econometric and machine learning techniques. The project includes GARCH, LSTM, LSTM-GARCH, and LSTM-GARCH with VIX input models, each leveraging time series data to understand and forecast market fluctuations. The focus is on combining traditional econometric methods with modern deep learning approaches to enhance the accuracy and robustness of volatility predictions.
