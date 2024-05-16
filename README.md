@@ -86,6 +86,20 @@ The `models_comparison/` directory contains scripts and methodologies for compar
 ### Running Model Comparisons
 To run the model comparisons, navigate to the `models_comparison/` directory and execute the comparison scripts.
 
+## Summary
+
+This master thesis project, "The Hybrid Forecast of S&P 500 Volatility Ensembled from VIX, GARCH, and LSTM Models," has successfully demonstrated how combining traditional econometric models with advanced machine learning techniques can enhance the accuracy of financial market volatility predictions. Key accomplishments of this project include:
+
+- **Development of Hybrid Models**: By integrating GARCH, LSTM, and VIX input models, the project has created robust tools for understanding and forecasting S&P 500 market volatility.
+- **Comprehensive Sensitivity Analysis**: Extensive testing on model parameters such as the number of layers, sequence length, and activation functions has provided deep insights into the models' behavior under various scenarios.
+- **Performance Benchmarking**: Through systematic comparisons, the project quantified the effectiveness of each model configuration using metrics like MAE and RMSE, enabling clear identification of the most predictive setups.
+- **Scalable Execution Environment**: Utilizing Google Cloud's computational resources ensured that the models were trained efficiently, allowing for scalability and the handling of complex datasets.
+
+### Conclusions
+
+The findings from this thesis highlight the potential of hybrid modeling approaches in financial applications. The models developed not only predict volatility accurately but also offer frameworks that can be adapted to other financial metrics or markets. Future work can explore the inclusion of additional data types, further refinement of model architectures, and real-time prediction capabilities.
+
+
 
 
 
