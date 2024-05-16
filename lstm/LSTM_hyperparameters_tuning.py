@@ -9,7 +9,7 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from kerastuner.tuners import RandomSearch
 
-# Load your data
+# Load data
 df = pd.read_excel('data/sp500_lstm.xlsx')
 
 # Convert 'Date' to datetime
@@ -55,7 +55,7 @@ tuner = RandomSearch(
     project_name='LSTM_Tuning'
 )
 
-# Define your early stopping callback
+# Early stopping
 early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
 
 # Start hyperparameter search
